@@ -1,0 +1,38 @@
+﻿
+@model OrderListViewModel
+
+
+<h2>Your orders</h2>
+<h4>Here is an overview of your orders.</h4>
+
+<table class="table">
+    <thead>
+        <tr class="columnHeader">
+            <th>ORDER DATE</th>
+            @if (Model.HasMessage)
+            {
+                <th>MESSAGE</th>
+            }
+            <th>ORDER TOTAL</th>
+            <th>PAID</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model.Orders)
+        {
+        <tr>
+            <td>@line.OrderPlaced.ToShortDateString()</td>
+            @if (Model.HasMessage)
+            {
+                <td class="boldRed">@line.Message</td>
+            }
+            <td class="bold">$@line.OrderTotal</td>
+            <td class="bold">@line.OrderPaid</td>
+            <td>
+                <a class="btn-primary" type="button" asp-action="Detail" asp-route-orderId="@line.Id">DETAILS</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
